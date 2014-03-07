@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="Scripts/jquery-2.1.0.min.js"></script>
+    <script src="Scripts/knockout-3.1.0.js"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        ko.bindingHandlers.googleChart = {
+            update: function (element, valueAccessor, allBindingsAccesor, viewModel, bindingContext) {
+
+                //TODO: load & handle visualization data using the 'valueAccessor'
+                //if (viewModel.configComplete() == true) {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', "X Column");
+
+
+                    //$.each(viewModel.yAxisColumns(), function (i, v) {
+                        //if (v.AggregateFunction != null && v.AggregateFunction != undefined && v.AggregateFunction.Function != null && v.AggregateFunction.Function != undefined && v.AggregateFunction.Function != "") {
+                        //    data.addColumn('number', v.ColumnDisplayName + '(' + v.AggregateFunction.DisplayName + ')');
+                        //} else {
+                            data.addColumn('number', "Y Column");
+                        //}
+                    //});
+
+
+
+                    $.each(viewModel.chartData(), function (index, value) {
+                        var newRow = new Array();
+
+                        newRow[0] = value[0];
+                        //$.each(viewModel.yAxisColumns(), function (i, v) {
+                        //    newRow[i + 1] = value[i + 1];
+                        //});
+
+                        newRow[1] = value[1];
+
+                        data.addRow(newRow);
+                    });
+
+
+                    var options = {
+                    };
+
+                    //if (viewModel.ThreeDChart()) {
+                    //    options.is3D = true;
+                    //}
+                    //if (viewModel.pieHole != undefined) {
+                    //    options.pieHole = viewModel.pieHole();
+                    //}
+                    //if (viewModel.pieSliceText != undefined) {
+                    //    options.pieSliceText = viewModel.pieSliceText();
+                    //}
+                    //if (viewModel.colors != undefined) {
+                    //    options.colors = viewModel.colors();
+                    //}
+                    //if (viewModel.chartArea != undefined) {
+                    //    options.chartArea = viewModel.chartArea();
+                    //}
+
+
+
+                    if (valueAccessor().legend != valueAccessor() && valueAccessor().legend != null && valueAccessor().legend) {
+                        //options.legend = [];
+                        //options.legend.position = 'right';
+                    } else {
+                        options.legend = 'none';
+                    }
+
+                    var chart;
+
+                    switch (valueAccessor().chartType) {
+                        case "Pie":
+                            chart = new google.visualization.PieChart(element);
+                            break;
+                        case "Scatter":
+                            chart = new google.visualization.ScatterChart(element);
+                            break;
+                        case "Line":
+                            chart = new google.visualization.LineChart(element);
+                            break;
+                        case "Bar":
+                            chart = new google.visualization.BarChart(element);
+                            break;
+                        case "Column":
+                            chart = new google.visualization.ColumnChart(element);
+                            break;
+                        case "Area":
+                            chart = new google.visualization.AreaChart(element);
+                            break;
+                    }
+
+                    chart.draw(data, options);
+                //}
+            }
+        };
+
+        $(document).ready(function () {
+
+            var viewModel = (function () {
+
+                var chartData = ko.observableArray();
+
+
+                var row1 = [];
+                row1[0] = "John";
+                row1[1] = 100;
+                chartData.push(row1);
+
+                var row2 = [];
+                row2[0] = "Mike";
+                row2[1] = 55;
+                chartData.push(row2);
+
+                var row3 = [];
+                row3[0] = "Adam";
+                row3[1] = 83;
+                chartData.push(row3);
+
+                var row4 = [];
+                row4[0] = "Paul";
+                row4[1] = 112;
+                chartData.push(row4);
+
+                return {
+                    chartData: chartData
+                }
+
+            })
+
+            ko.applyBindings(viewModel);
+        });
+    </script>
+
+</head>
+<body>
+    <div data-bind="googleChart: { chartType: 'Pie', legend: true }" style="height:135px;"></div>
+</body>
+</html>

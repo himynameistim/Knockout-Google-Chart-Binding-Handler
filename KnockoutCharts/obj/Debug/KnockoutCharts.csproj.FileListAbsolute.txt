@@ -1,0 +1,5 @@
+C:\Users\timg\Documents\KnockoutCharts\KnockoutCharts\bin\KnockoutCharts.dll
+C:\Users\timg\Documents\KnockoutCharts\KnockoutCharts\bin\KnockoutCharts.pdb
+C:\Users\timg\Documents\KnockoutCharts\KnockoutCharts\obj\Debug\KnockoutCharts.csprojResolveAssemblyReference.cache
+C:\Users\timg\Documents\KnockoutCharts\KnockoutCharts\obj\Debug\KnockoutCharts.dll
+C:\Users\timg\Documents\KnockoutCharts\KnockoutCharts\obj\Debug\KnockoutCharts.pdb
